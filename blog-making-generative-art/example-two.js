@@ -2,20 +2,20 @@
  * Created on Thursday 24 August 2023
  *
  * Features as a basic introduction to generative art in "Making Generative Art"
- * Name: Stage Two
+ * Name: Example Two
  * Link: https://www.datarav3.art/blog/how-i-started-making-generative-art
  * Requires: https://p5js.org/
  */
 
-stillCircles = [];
-stillCirclesAmount = 10;
-stillCirclesColour = [245, 245, 245];
+const stillCircles = [];
+const stillCirclesAmount = 10;
+const stillCirclesColour = [245, 245, 245];
 
-movingCircles = [];
-movingCirclesAmount = 1;
-movingCirclesColour = [255, 165, 0];
+const movingCircles = [];
+const movingCirclesAmount = 1;
+const movingCirclesColour = [255, 165, 0];
 
-circleSize = 50;
+const circleSize = 50;
 
 function setup() {
   createCanvas(800, 450);
@@ -50,6 +50,12 @@ function draw() {
     c.move();
     c.intersect();
     c.display();
+  }
+}
+
+function keyPressed() {
+  if (key === "s") {
+    saveGif("mySketch", 10);
   }
 }
 

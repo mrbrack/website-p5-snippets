@@ -2,7 +2,7 @@
  * Created on Thursday 24 August 2023
  *
  * Features as a basic introduction to generative art in "Making Generative Art"
- * Name: Example One
+ * Name: Example Four
  * Link: https://www.datarav3.art/blog/how-i-started-making-generative-art
  * Requires: https://p5js.org/
  */
@@ -12,12 +12,13 @@ const stillCirclesAmount = 10;
 const stillCirclesColour = [245, 245, 245];
 
 const movingCircles = [];
-const movingCirclesAmount = 1;
+const movingCirclesAmount = 50;
 const movingCirclesColour = [255, 165, 0];
 
-const circleSize = 50;
+const circleSize = 500;
 
 function setup() {
+  frameRate(5);
   createCanvas(800, 450);
   noStroke();
 
@@ -48,6 +49,7 @@ function draw() {
 
   for (let c of movingCircles) {
     c.move();
+    c.intersect();
     c.display();
   }
 }
@@ -79,5 +81,18 @@ class CoolMover extends CoolCircle {
   move() {
     this.pos.add(this.velocity);
     this.velocity = createVector(random(-10, 10), random(-10, 10));
+  }
+
+  intersect() {
+    for (let c of stillCircles) {
+      const distance = dist(this.pos.x, this.pos.y, c.pos.x, c.pos.y);
+      const radiusSum = (this.size + c.size) / 2;
+      if (distance < radiusSum) {
+        this.colour = random(this.intersectColor);
+        return;
+      } else {
+        this.colour = movingCirclesColour;
+      }
+    }
   }
 }
